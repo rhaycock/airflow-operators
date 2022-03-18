@@ -1,0 +1,1 @@
+# WIP: A subclass of gcloud_bash_operator which will easily sync an S3 bucket with a GCS bucket.
