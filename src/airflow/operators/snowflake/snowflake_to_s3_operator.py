@@ -111,7 +111,6 @@ class SnowflakeToGCSOperator(BaseOperator):
         log.info(f'Fetching schema fields')
         _sql_columns = f'desc table {self.database}.{self.schema}.{self.table} TYPE = COLUMNS'
         _cursor_schema = conn.cursor()
-        # schema_fields = self.getFirstColumnListAsString(_cursor_schema.execute(_sql_columns))
         tmp_schema_fields = _cursor_schema.execute(_sql_columns)
         schema_fields = []
         for x in tmp_schema_fields:
@@ -185,7 +184,6 @@ class SnowflakeToGCSOperator(BaseOperator):
         for old_object in old_object_list:
             gcs.delete(self.bucket, old_object)
 
-        # self._upload_to_gcs(f'{prefix}/{files_to_upload}')
         log.info(f'Uploading files to bucket {self.bucket}')
         self._upload_to_gcs(f'{prefix}', files_to_upload)
 
