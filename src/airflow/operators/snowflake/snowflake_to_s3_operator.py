@@ -180,7 +180,8 @@ class SnowflakeToGCSOperator(BaseOperator):
         elif self.cadence == '@hourly':
             prefix = f"{self.database}/{self.schema}/{self.table}/{self.dt}/{self.hour}"
         # List current objects in the bucket blob and delete them
-        old_object_list = gcs.list(self.bucket, prefix=prefix)
+        # Backslash added to prefix so the list method will only list objects that are an exact naming match
+        old_object_list = gcs.list(self.bucket, prefix=f'{prefix}/')
         for old_object in old_object_list:
             gcs.delete(self.bucket, old_object)
 
